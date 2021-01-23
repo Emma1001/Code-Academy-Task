@@ -2,10 +2,25 @@
 #include <stdio.h>
 
 /* Дефинираме две константи. Една за знак и една за буква. */
-#define Sign   0
-#define Letter 1
+#define SIGN   0
+#define LETTER 1
 
 /* Създаваме функция която ще използваме, за да можем да прочетем даден текст, въведен от потребителя. */
+void getInput(char *str);
+
+/* Създаваме функция която ще премине през всички символи в подаден стринг и ще преброи думите. */
+unsigned countTheWords(char *str);
+
+/* Нашата main функция в която искаме от потребителя да въведе своя текст и ние му връщаме броя на думите в него. */
+int main(void) {
+    char str[256];
+
+    printf("Enter your text here:"); 
+    getInput(str);
+    printf("Numbers of words in \"%s\" : %d", str, countTheWords(str));
+    return 0;
+}
+
 void getInput(char *str){
     char c ;
     int count=0;
@@ -20,9 +35,8 @@ void getInput(char *str){
     *str ='\0';
 }
 
-/* Създаваме функция която ще премине през всички символи в подаден стринг и ще преброи думите. */
 unsigned countTheWords(char *str) {
-    int state = Sign;
+    int state = SIGN;
     unsigned WordCounter = 0;
 
     /* Обхождаме стринга / низа */
@@ -30,22 +44,12 @@ unsigned countTheWords(char *str) {
     {
         /* Проверяваме дали символа е различен от буква. */
         if (!((*str >= 65 && *str <= 90) || (*str >= 97 && *str <= 122))) {
-            state = Sign;
-        } else if (state == Sign) {
-            state = Letter;
+            state = SIGN;
+        } else if (state == SIGN) {
+            state = LETTER;
             ++WordCounter;/* Брояч на думите. */
         }
         ++str; /* Преминаваме на следващият символ. */
     }
     return WordCounter; /* Връщаме брой думи. */
-}
-
-/* Нашата main функция в която искаме от потребителя да въведе своя текст и ние му връщаме броя на думите в него. */
-int main(void) {
-    char str[256];
-
-    printf("Enter your text here:"); 
-    getInput(str);
-    printf("Numbers of words in \"%s\" : %d", str, countTheWords(str));
-    return 0;
 }
