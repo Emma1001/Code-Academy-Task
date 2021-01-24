@@ -1,9 +1,5 @@
 /* "Напишете функция, която преброява колко думи има в един стринг, който й се подава като параметър." */
-#include <stdio.h>
-
-/* Дефинираме две константи. Една за знак и една за буква. */
-#define SIGN   0
-#define LETTER 1
+#include <stdio.h> 
 
 /* Създаваме функция която ще използваме, за да можем да прочетем даден текст, въведен от потребителя. */
 void getInput(char *str);
@@ -36,6 +32,10 @@ void getInput(char *str){
 }
 
 unsigned countTheWords(char *str) {
+    /* Дефинираме две константи. Една за знак и една за буква.*/
+    const int SIGN = 0;
+    const int LETTER = 1;
+    
     int state = SIGN;
     unsigned WordCounter = 0;
 
