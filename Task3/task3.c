@@ -1,51 +1,52 @@
 /* Напишете функция, която получавa  като параметър две числа, и връща като резултат броя на позициите в битовото представяне на числата, на които двете числа имат различни стойности. Водещите нули да се игнорират (тоест броенето да започне от най-старшия вдигнат бит на по-голямото число). */
 #include <stdio.h>
 
-int numberDigits(unsigned int a, unsigned int b);
+unsigned int findDif(unsigned int a, unsigned int b);
 void decToBin(unsigned int n);
-int inputDigit(char number);
+int inputDigit(char letter);
 
 int main(void){
 
     int a = inputDigit('A');
     int b = inputDigit('B');
     
-    printf("\n\nThe sum of the differences between the numbers on bit level is: %d\n\n", numberDigits(a, b));
+    printf("\n\nThe sum of the differences between the numbers on bit level is: %d\n\n", findDif(a, b));
     return 0;
 }
 
-int inputDigit(char number){
-    int status, a;
+int inputDigit(char letter){
+    int status, number;
 
     do{
-        printf("Enter a decimal value for %c: ", number);
-        status = scanf("%d", &a);
+        printf("Enter a decimal value for %c: ", letter);
+        status = scanf("%d", &number);
         getchar();
         if (status == 0){
             printf("Invalid decimal. Pls. enter again.\n");
         }     
     } while (status == 0);
 
-    if (a < 0){
-       	a = ~a;
-       	a += 1;
+    if (number < 0){
+       	number = ~number;
+       	number += 1;
     }
-    printf("You entered %c with absolute value of %d\n", number, a);
+    printf("You entered %c with absolute value of %d\n", letter, number);
     printf("Binary value is: ");
-    decToBin(a);
+    decToBin(number);
    
-    return a;
+    return number;
 }
 
-int numberDigits(unsigned int a, unsigned int b){
-    int c = a ^ b;
-	int n = 0;
-	while(c != 0){
-		if(c & 1)
-			++ n;
-		c >>= 1;
-   	}
-    return n;
+unsigned int findDif(unsigned int a, unsigned int b){
+    unsigned int res = a ^ b;
+    unsigned int counter = 0;
+    unsigned char cCheck = 1;
+
+    do{
+        counter += res & cCheck;
+    }while(res>>=1);
+
+    return counter;
 }
 void decToBin(unsigned int n){
     unsigned i;
